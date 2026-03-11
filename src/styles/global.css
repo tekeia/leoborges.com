@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-gold-400: #ffe633;
+  --color-gold-500: #ffe00d;
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+}
+
+/* Nav links */
+.nav-link {
+  color: var(--color-gold-500);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.nav-link:hover {
+  color: var(--color-gold-400);
+}
+.nav-link.active {
+  text-decoration: underline;
+}
+
+/* Logo mark */
+.logo-mark {
+  font-size: 3.5rem;
+  line-height: 1;
+  font-weight: 600;
+  color: var(--color-gold-500);
+  text-decoration: none;
+  transition: color 0.15s ease;
+  display: block;
+  width: 3.5rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+.logo-mark:hover {
+  color: var(--color-gold-400);
+}
+
+/* Prose link overrides */
+.prose a {
+  color: var(--color-gold-500) !important;
+  text-decoration: none;
+}
+.prose a:hover {
+  color: var(--color-gold-400) !important;
+  text-decoration: underline;
+}
+
+/* Table */
+table { width: 100%; border-collapse: collapse; }
+th {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 224, 13, 0.3);
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.5);
+}
+td {
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  vertical-align: top;
+}
+tr:last-child td { border-bottom: none; }
+
+/* Article list */
+.article-list { list-style: none; padding: 0; margin: 0; }
+.article-list li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+.article-list li:last-child { border-bottom: none; }
+.article-date {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 0.25rem;
+}

@@ -1,0 +1,59 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const books = [
+  { title: "Book Title", author: "Author Name", status: "Currently reading" },
+  { title: "Another Book", author: "Author Name", status: "Read 2025" },
+  { title: "On My List", author: "Author Name", status: "Want to read" },
+];
+
+const music = [
+  { name: "Artist or Album Name", url: "#", note: "What you love about it." },
+  { name: "Another Artist", url: "#", note: "What you love about it." },
+];
+
+const film = [
+  { title: "Film or Show Title", note: "Short note on why it's worth watching." },
+  { title: "Another Title", note: "Short note on why it's worth watching." },
+];
+---
+
+<Layout title="Culture" activeNav="culture">
+  <div class="not-prose font-serif">
+    <h2 class="text-4xl font-light mb-2">Culture</h2>
+    <p class="text-gray-400 mb-8">Things I'm reading, watching, listening to, and obsessing over.</p>
+
+    <!-- Books -->
+    <h3 class="text-2xl font-light mt-10 mb-4">Books</h3>
+    <ul class="article-list">
+      {books.map((b) => (
+        <li>
+          <span class="text-lg font-medium">{b.title}</span>
+          <div class="article-date">{b.author} &mdash; {b.status}</div>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Music -->
+    <h3 class="text-2xl font-light mt-10 mb-4">Music</h3>
+    <ul class="article-list">
+      {music.map((m) => (
+        <li>
+          <a href={m.url} class="nav-link text-lg font-medium">{m.name}</a>
+          <div class="article-date">{m.note}</div>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Film & TV -->
+    <h3 class="text-2xl font-light mt-10 mb-4">Films &amp; TV</h3>
+    <ul class="article-list">
+      {film.map((f) => (
+        <li>
+          <span class="text-lg font-medium">{f.title}</span>
+          <div class="article-date">{f.note}</div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Layout>

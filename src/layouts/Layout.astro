@@ -1,0 +1,71 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  activeNav?: 'about' | 'projects' | 'culture' | 'blog';
+}
+
+const {
+  title,
+  description = 'Leo Borges personal website.',
+  activeNav,
+} = Astro.props;
+
+const pageTitle = title ? `${title} - Leo Borges` : 'Leo Borges';
+---
+
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>{pageTitle}</title>
+  <meta name="title" content={pageTitle} />
+  <meta name="description" content={description} />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={description} />
+
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:title" content={pageTitle} />
+  <meta property="twitter:description" content={description} />
+
+  <meta name="theme-color" content="#ffe00d" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+</head>
+
+<body class="bg-black text-white">
+  <div class="items-start gap-6 p-8 md:flex md:py-20">
+    <a href="/" class="logo-mark" title="Home">&#10626;&#10650;</a>
+
+    <div class="mt-6 md:mt-0 flex-1">
+      <header class="mb-10 font-serif prose prose-invert max-w-none">
+        <h1 class="mb-3 text-5xl md:text-6xl font-light tracking-tight">Leo Borges</h1>
+        <nav class="text-xl not-prose flex flex-wrap gap-x-3 gap-y-1">
+          <a href="/" class={`nav-link ${activeNav === 'about' ? 'active' : ''}`}>About</a>
+          <span class="opacity-30">/</span>
+          <a href="/projects" class={`nav-link ${activeNav === 'projects' ? 'active' : ''}`}>Projects</a>
+          <span class="opacity-30">/</span>
+          <a href="/culture" class={`nav-link ${activeNav === 'culture' ? 'active' : ''}`}>Culture</a>
+          <span class="opacity-30">/</span>
+          <a href="/blog" class={`nav-link ${activeNav === 'blog' ? 'active' : ''}`}>Blog</a>
+        </nav>
+      </header>
+
+      <main class="font-serif prose prose-invert max-w-2xl">
+        <slot />
+      </main>
+
+      <footer class="my-12 font-serif text-sm prose text-gray-400 prose-invert">
+        <p>
+          This thing is <a href="https://github.com/leoborges/leoborges.com" class="nav-link">open source</a>, for better or worse.
+        </p>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>

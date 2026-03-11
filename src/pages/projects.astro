@@ -1,0 +1,61 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const projects = [
+  {
+    name: "Project Name",
+    url: "#",
+    year: 2024,
+    description: "Short description of what this project does.",
+    outcome: "Currently active",
+  },
+  {
+    name: "Another Project",
+    url: "#",
+    year: 2022,
+    description: "Short description of what this project does.",
+    outcome: "Acquired",
+  },
+  {
+    name: "Side Project",
+    url: "#",
+    year: 2021,
+    description: "Short description of what this project does.",
+    outcome: "Shut down",
+  },
+];
+---
+
+<Layout title="Projects" activeNav="projects">
+  <div class="not-prose">
+    <div class="mb-2">
+      <h2 class="font-serif text-4xl font-light m-0">Projects</h2>
+    </div>
+    <p class="mt-2 mb-6 text-lg text-gray-400 font-serif">Things I've worked on (and continue to work on).</p>
+
+    <div class="overflow-x-auto">
+      <table>
+        <thead>
+          <tr>
+            <th>Project</th>
+            <th>Year</th>
+            <th>Description</th>
+            <th>What Happened</th>
+          </tr>
+        </thead>
+        <tbody>
+          {projects.map((p) => (
+            <tr>
+              <td class="font-medium font-serif">
+                <a href={p.url} class="nav-link">{p.name}</a>
+              </td>
+              <td class="text-gray-400 whitespace-nowrap font-serif">{p.year}</td>
+              <td class="font-serif">{p.description}</td>
+              <td class="text-gray-400 font-serif">{p.outcome}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</Layout>
