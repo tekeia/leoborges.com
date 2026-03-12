@@ -3,8 +3,8 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-gold-400: #ffe633;
-  --color-gold-500: #ffe00d;
+  --color-gold-400: #2ee86f;
+  --color-gold-500: #25d366;
   --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
 }
 
@@ -53,7 +53,7 @@ table { width: 100%; border-collapse: collapse; }
 th {
   text-align: left;
   padding: 0.5rem 0.75rem;
-  border-bottom: 1px solid rgba(255, 224, 13, 0.3);
+  border-bottom: 1px solid rgba(37, 211, 102, 0.3);
   font-weight: 600;
   font-size: 0.875rem;
   text-transform: uppercase;
