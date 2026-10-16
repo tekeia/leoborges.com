@@ -1,17 +1,20 @@
 ---
-title: "Hello World"
-date: 2026-03-11
-description: "First post on the new site."
+title: "IAM Lab #0: Why I'm building an identity lab"
+date: 2026-10-16
+description: "My plan to grow from IAM Administrator to IAM Engineer by building everything at home with free tools."
 ---
 
-Welcome to my new site. This is my first post.
+I work as an IAM Administrator, and my next goal is to become an IAM Engineer. The difference is building, not just operating: designing provisioning flows, integrating applications, and understanding protocols like SAML, OAuth and SCIM from the inside.
 
-## How this works
+So I'm building an identity lab at home, using only free tools, and documenting every step here. This blog is a way to track my progress and to share what I'm learning with other professionals and recruiters.
 
-This post is just a Markdown file. To publish something new, I create a `.md` file in the `src/content/blog/` folder, add a title and date at the top, and write.
+## The lab
 
-That's it. No CMS, no database — just text files and Git.
+- **Proxmox** as the hypervisor
+- **Windows Server** as the domain controller (Active Directory)
+- **Ubuntu Server** running **midPoint**, an open source identity governance platform
+- **Windows 11** as a domain-joined workstation for testing
 
 ## What's next
 
-I'll be writing about things I'm building, thinking about, and learning. Stay tuned.
+Next post: installing midPoint with Docker.
