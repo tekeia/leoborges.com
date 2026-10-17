@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
 @theme {
   --color-gold-400: #2ee86f;
   --color-gold-500: #25d366;
-  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-serif: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* Nav links */
