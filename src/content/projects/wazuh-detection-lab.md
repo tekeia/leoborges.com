@@ -1,7 +1,7 @@
 ---
 title: "Wazuh Detection Lab"
 summary: "Deploying Wazuh as the lab's SIEM and XDR to monitor the identity stack: Active Directory, Windows endpoints and Linux servers, with detections for identity attacks."
-status: not-started
+status: off
 tags: [Security Operations, Wazuh, SIEM, Detection, Active Directory, Homelab]
 stack: [Wazuh, Windows Server, Active Directory, Ubuntu Server, Proxmox]
 featured: false

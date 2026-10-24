@@ -19,7 +19,7 @@
   --led-green: #1fbf5b;
   --led-yellow: #e0a800;
   --led-red: #e5484d;
-  --led-off: #c8ccd0;
+  --led-dark: #c8ccd0;
 }
 .dark {
   --bg: #0b0c0d;
@@ -35,7 +35,7 @@
   --led-green: #25d366;
   --led-yellow: #f5c542;
   --led-red: #ff5a5f;
-  --led-off: #26292c;
+  --led-dark: #26292c;
 }
 
 @theme inline {
@@ -275,9 +275,9 @@ a.tag-link:hover { color: var(--accent) !important; border-color: var(--accent);
   animation: led-pulse 2.4s ease-in-out infinite;
 }
 .led-briefly-paused { background: var(--led-yellow); box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 0 5px var(--led-yellow); }
-.led-hard-paused { background: var(--led-red); box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 0 5px var(--led-red); }
-.led-abandoned, .led-not-started {
-  background: var(--led-off);
+.led-off { background: var(--led-red); box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 0 5px var(--led-red); }
+.led-abandoned {
+  background: var(--led-dark);
   box-shadow: inset 0 1px 2px rgba(0,0,0,.45), 0 0 0 1px var(--line);
 }
 @keyframes led-pulse {

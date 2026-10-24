@@ -1,7 +1,7 @@
 ---
 title: "Hybrid Identity with Entra ID"
 summary: "Syncing the lab's on-prem Active Directory to Microsoft Entra ID and securing cloud sign-in with Conditional Access."
-status: not-started
+status: off
 tags: [Cloud, Azure, Entra ID, Active Directory, IAM]
 stack: [Microsoft Entra ID, Entra Connect, Active Directory, Azure]
 featured: true

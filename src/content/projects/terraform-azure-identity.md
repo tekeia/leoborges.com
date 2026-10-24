@@ -1,7 +1,7 @@
 ---
 title: "Identity Infrastructure as Code with Terraform"
 summary: "Defining Azure and Entra ID identity configuration in Terraform: groups, role assignments and Conditional Access, versioned on GitHub."
-status: not-started
+status: off
 tags: [Cloud, Terraform, Azure, Entra ID, IaC]
 stack: [Terraform, Azure, Microsoft Entra ID, GitHub Actions]
 featured: true
