@@ -1,7 +1,7 @@
 ---
 title: "wpp_dispatcher"
 summary: "An automated WhatsApp messaging tool that runs in the background and only needs to be authenticated once."
-status: active
+status: complete
 tags: [Automation, Python]
 stack: [Python, Flask, Node.js]
 featured: false
