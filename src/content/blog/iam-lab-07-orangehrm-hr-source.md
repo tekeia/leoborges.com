@@ -2,6 +2,10 @@
 title: "IAM Lab #7: Adding an HR system as the source of truth"
 date: 2026-10-18
 description: "Why real identity programs start from HR, and deploying OrangeHRM with Docker on its own VM as the lab's authoritative source."
+series: "IAM Lab"
+part: 7
+project: midpoint-identity-lab
+tags: ["IAM", "OrangeHRM", "Identity Governance"]
 ---
 
 So far, Active Directory has been the source of truth in my lab: midPoint reads users from AD and creates identities from them. That was a good way to learn import, correlation and reconciliation, but it's not how real companies work. In this post I add an HR system to the lab and explain why it changes the design.

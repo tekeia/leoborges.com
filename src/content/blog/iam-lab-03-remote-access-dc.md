@@ -2,6 +2,10 @@
 title: "IAM Lab #3: SSH and Remote Desktop on the domain controller"
 date: 2026-10-17
 description: "Enabling OpenSSH and RDP on Windows Server so I can manage my lab DC from my own computer with copy and paste."
+series: "IAM Lab"
+part: 3
+project: midpoint-identity-lab
+tags: ["IAM", "Active Directory", "Windows Server"]
 ---
 
 Typing long PowerShell commands into the Proxmox web console gets old fast, especially when copy and paste doesn't work. The fix is to stop using the console for daily work and connect to the domain controller directly from my computer.

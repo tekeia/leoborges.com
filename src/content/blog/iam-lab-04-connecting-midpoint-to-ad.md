@@ -2,6 +2,10 @@
 title: "IAM Lab #4: Connecting midPoint to Active Directory"
 date: 2026-10-17
 description: "Creating an Active Directory resource in midPoint with the AD LDAP connector and defining the account object type."
+series: "IAM Lab"
+part: 4
+project: midpoint-identity-lab
+tags: ["IAM", "midPoint", "Active Directory"]
 ---
 
 With the domain prepared and a service account ready, it's time to connect midPoint to Active Directory. In midPoint, every system it manages is called a **resource**. This post covers creating the AD resource and defining which AD objects count as accounts.

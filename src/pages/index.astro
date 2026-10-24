@@ -1,11 +1,74 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getPosts, getProjects, postsForProject, formatDate } from '../lib/content';
+
+const posts = await getPosts();
+const projects = await getProjects();
+const featured = projects.filter((p) => p.data.featured).slice(0, 4);
+const latest = posts.slice(0, 3);
+
+const focus = [
+  { area: 'Identity governance', detail: 'SailPoint, midPoint, HR-driven joiner/mover/leaver' },
+  { area: 'Access management', detail: 'Okta, Microsoft Entra ID, Active Directory, PAM' },
+  { area: 'Cloud & automation', detail: 'Azure, Terraform, PowerShell' },
+  { area: 'Detection & monitoring', detail: 'Wazuh, SIEM, identity attack detection' },
+];
 ---
 
 <Layout activeNav="about">
-  <p class="text-3xl">Greetings web traveler! My name is Leo. Welcome to my digital garden — a florilegium of personal works across all things infosec, technology and life.</p>
-  <p class="text-2xl">
-    You can find me on <a href="https://x.com/leoborges">Twitter</a> and
-    <a href="https://github.com/leoborges">GitHub</a>.
+  <p class="text-3xl leading-snug">
+    I'm Leo, and I work on identity security: who gets access to what, how that access is granted, and how it's taken away.
+  </p>
+  <p class="text-xl text-gray-300">
+    Today I'm an IAM administrator in banking, running SailPoint, Okta, Entra ID, Delinea and Active Directory in production.
+    I'm building toward identity security engineering, combining IAM with cloud security, and I document the labs I build along the way.
+  </p>
+
+  <div class="not-prose font-serif mt-8">
+    <ul class="article-list">
+      {focus.map((f) => (
+        <li>
+          <span class="text-lg font-medium">{f.area}</span>
+          <div class="article-date">{f.detail}</div>
+        </li>
+      ))}
+    </ul>
+    <p class="article-date mt-4">Certifications: CEH · Security+ · ISC2 CC · CIAM · B.S. Cybersecurity</p>
+  </div>
+
+  <section class="not-prose font-serif mt-12">
+    <div class="flex items-baseline justify-between mb-4">
+      <h2 class="text-3xl font-light m-0">Featured projects</h2>
+      <a href="/projects" class="nav-link text-sm">All projects &rarr;</a>
+    </div>
+    <div class="flex flex-col gap-4">
+      {featured.map((p) => (
+        <ProjectCard project={p} postCount={postsForProject(posts, p.id).length} />
+      ))}
+    </div>
+  </section>
+
+  {latest.length > 0 && (
+    <section class="not-prose font-serif mt-12">
+      <div class="flex items-baseline justify-between mb-2">
+        <h2 class="text-3xl font-light m-0">Latest lab notes</h2>
+        <a href="/blog" class="nav-link text-sm">All posts &rarr;</a>
+      </div>
+      <ul class="article-list">
+        {latest.map((post) => (
+          <li>
+            <a href={`/blog/${post.id}`} class="nav-link text-lg font-medium">{post.data.title}</a>
+            <div class="article-date">
+              {post.data.series && `${post.data.series} · `}{formatDate(post.data.date)}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <p class="text-xl mt-12">
+    Find me on <a href="https://github.com/tekeia">GitHub</a>.
   </p>
 </Layout>

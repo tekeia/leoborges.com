@@ -1,0 +1,56 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { render } from 'astro:content';
+import { getPosts, getProjects, postsForProject, tagSlug, formatDate } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  const posts = await getPosts();
+  return projects.map((project) => ({
+    params: { id: project.id },
+    props: { project, posts: postsForProject(posts, project.id) },
+  }));
+}
+
+const { project, posts } = Astro.props;
+const { Content } = await render(project);
+const { title, summary, status, tags, stack, repo, link } = project.data;
+const series = posts[0]?.data.series;
+---
+
+<Layout title={title} description={summary} activeNav="projects">
+  <div class="not-prose font-serif mb-6">
+    <p class="mb-3"><a href="/projects" class="nav-link text-sm">&larr; All projects</a></p>
+    <h2 class="text-4xl font-light mt-0 mb-3">{title}</h2>
+    <p class="text-lg text-gray-300 mb-4">{summary}</p>
+    <div class="flex flex-wrap items-center gap-2 mb-3">
+      <span class={`status status-${tagSlug(status)}`}>{status}</span>
+      {tags.map((t) => <a href={`/projects?tag=${tagSlug(t)}`} class="tag tag-link">{t}</a>)}
+    </div>
+    {stack.length > 0 && (
+      <p class="article-date">Stack: {stack.join(' · ')}</p>
+    )}
+    {(repo || link) && (
+      <p class="mt-3 flex gap-4">
+        {repo && <a href={repo} class="nav-link">Source on GitHub &rarr;</a>}
+        {link && <a href={link} class="nav-link">Live &rarr;</a>}
+      </p>
+    )}
+  </div>
+
+  <Content />
+
+  {posts.length > 0 && (
+    <section class="not-prose font-serif mt-10">
+      <h3 class="text-2xl font-light mb-2">{series ? `${series} write-ups` : 'Write-ups'}</h3>
+      <ol class="article-list">
+        {posts.map((post) => (
+          <li>
+            <a href={`/blog/${post.id}`} class="nav-link text-lg font-medium">{post.data.title}</a>
+            <div class="article-date">{formatDate(post.data.date)}</div>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
+</Layout>

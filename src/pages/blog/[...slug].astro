@@ -1,34 +1,78 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection, render } from 'astro:content';
+import { getEntry, render } from 'astro:content';
+import { seriesSlug } from '../../data/series';
+import { getPosts, inSeriesOrder, formatDate } from '../../lib/content';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
-  return posts.map((post) => ({
-    params: { slug: post.id },
-    props: { post },
-  }));
+  const posts = await getPosts();
+  return posts.map((post) => {
+    const seriesPosts = post.data.series
+      ? inSeriesOrder(posts.filter((p) => p.data.series === post.data.series))
+      : [];
+    const i = seriesPosts.findIndex((p) => p.id === post.id);
+    return {
+      params: { slug: post.id },
+      props: {
+        post,
+        prev: i > 0 ? seriesPosts[i - 1] : undefined,
+        next: i >= 0 && i < seriesPosts.length - 1 ? seriesPosts[i + 1] : undefined,
+        position: i >= 0 ? { index: i + 1, total: seriesPosts.length } : undefined,
+      },
+    };
+  });
 }
 
-const { post } = Astro.props;
+const { post, prev, next, position } = Astro.props;
 const { Content } = await render(post);
-
-const formatDate = (date: Date) =>
-  date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+const project = post.data.project ? await getEntry(post.data.project) : undefined;
+const { series } = post.data;
 ---
 
-<Layout
-  title={post.data.title}
-  description={post.data.description}
-  activeNav="blog"
->
-  <p class="text-sm text-gray-400 mb-1 not-prose">{formatDate(post.data.date)}</p>
+<Layout title={post.data.title} description={post.data.description} activeNav="blog">
+  <div class="not-prose font-serif mb-4">
+    {series && position && (
+      <p class="text-sm mb-1">
+        <a href={`/blog#${seriesSlug(series)}`} class="nav-link">{series}</a>
+        <span class="text-gray-400"> · Part {position.index} of {position.total}</span>
+      </p>
+    )}
+    <p class="text-sm text-gray-400 mb-1">{formatDate(post.data.date)}</p>
+  </div>
   <h2 class="text-4xl font-light mt-0">{post.data.title}</h2>
+
+  {project && (
+    <p class="not-prose font-serif project-callout">
+      Part of the project <a href={`/projects/${project.id}`} class="nav-link">{project.data.title}</a>
+    </p>
+  )}
 
   <Content />
 
   <hr class="border-white/10 my-8" />
-  <p class="not-prose">
+
+  {(prev || next) && (
+    <nav class="not-prose font-serif series-nav" aria-label={`${series} navigation`}>
+      <div>
+        {prev && (
+          <a href={`/blog/${prev.id}`} class="nav-link">
+            <span class="article-date block">&larr; Previous</span>
+            {prev.data.title}
+          </a>
+        )}
+      </div>
+      <div class="text-right">
+        {next && (
+          <a href={`/blog/${next.id}`} class="nav-link">
+            <span class="article-date block">Next &rarr;</span>
+            {next.data.title}
+          </a>
+        )}
+      </div>
+    </nav>
+  )}
+
+  <p class="not-prose font-serif mt-8">
     <a href="/blog" class="nav-link">&larr; Back to Blog</a>
   </p>
 </Layout>

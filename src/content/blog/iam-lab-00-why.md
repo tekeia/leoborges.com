@@ -2,6 +2,10 @@
 title: "IAM Lab #0: Why I'm building an identity lab"
 date: 2026-10-16
 description: "My plan to grow from IAM Administrator to IAM Engineer by building everything at home with free tools."
+series: "IAM Lab"
+part: 0
+project: midpoint-identity-lab
+tags: ["IAM", "midPoint", "Homelab"]
 ---
 
 I work as an IAM Administrator, and my next goal is to become an IAM Engineer. The difference is building, not just operating: designing provisioning flows, integrating applications, and understanding protocols like SAML, OAuth and SCIM from the inside.

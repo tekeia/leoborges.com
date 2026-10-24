@@ -78,3 +78,87 @@ tr:last-child td { border-bottom: none; }
   color: rgba(255, 255, 255, 0.4);
   margin-top: 0.25rem;
 }
+
+/* Header tagline */
+.tagline {
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0 0 0.75rem;
+  letter-spacing: 0.02em;
+}
+
+/* Project cards */
+.project-card {
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.5rem;
+  transition: border-color 0.15s ease;
+}
+.project-card:hover { border-color: rgba(37, 211, 102, 0.4); }
+.project-card[hidden] { display: none; }
+
+/* Tags */
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  line-height: 1;
+  padding: 0.3rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+}
+a.tag-link:hover { background: rgba(37, 211, 102, 0.15); color: var(--color-gold-400); }
+
+/* Tag filter buttons */
+.tag-filter {
+  font-size: 0.875rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.75);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.tag-filter:hover { border-color: var(--color-gold-500); color: var(--color-gold-400); }
+.tag-filter[aria-pressed="true"] {
+  background: var(--color-gold-500);
+  border-color: var(--color-gold-500);
+  color: #000;
+}
+.tag-filter:focus-visible { outline: 2px solid var(--color-gold-400); outline-offset: 2px; }
+
+/* Project status */
+.status {
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid currentColor;
+}
+.status-active, .status-complete { color: var(--color-gold-500); }
+.status-in-progress { color: #f5c542; }
+.status-planned { color: rgba(255, 255, 255, 0.45); }
+
+/* Post: project callout + series navigation */
+.project-callout {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 0.6rem 0.9rem;
+  border-left: 2px solid var(--color-gold-500);
+  background: rgba(37, 211, 102, 0.05);
+  margin-bottom: 1.5rem;
+}
+.series-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+@media (max-width: 480px) {
+  .series-nav { grid-template-columns: 1fr; }
+  .series-nav .text-right { text-align: left; }
+}

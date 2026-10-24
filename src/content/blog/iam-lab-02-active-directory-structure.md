@@ -2,6 +2,10 @@
 title: "IAM Lab #2: Preparing Active Directory for midPoint"
 date: 2026-10-17
 description: "Creating the OU structure, a service account for midPoint and test users in my lab domain with PowerShell."
+series: "IAM Lab"
+part: 2
+project: midpoint-identity-lab
+tags: ["IAM", "Active Directory", "PowerShell"]
 ---
 
 With midPoint running, the next piece of the lab is Active Directory. midPoint needs something to manage, and AD is what most companies use. In this post I prepare the domain: an OU structure, a dedicated service account for midPoint, and a few test users.

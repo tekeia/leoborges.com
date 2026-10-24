@@ -2,6 +2,10 @@
 title: "IAM Lab #5: Importing Active Directory users into midPoint"
 date: 2026-10-17
 description: "Inbound mappings, correlation, synchronization reactions, limiting the scope with an XML edit, and importing AD accounts as midPoint users."
+series: "IAM Lab"
+part: 5
+project: midpoint-identity-lab
+tags: ["IAM", "midPoint", "Active Directory"]
 ---
 
 With the AD resource and the account object type in place, midPoint can see the accounts but doesn't yet know what to do with them. In this post I configure the rules that turn AD accounts into midPoint users, limit midPoint to the Employees OU, and run the import.
