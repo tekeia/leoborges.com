@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import StatusLight from '../../components/StatusLight.astro';
 import { render } from 'astro:content';
 import { getPosts, getProjects, postsForProject, tagSlug, formatDate } from '../../lib/content';
 
@@ -24,7 +25,7 @@ const series = posts[0]?.data.series;
     <h2 class="text-3xl font-semibold tracking-tight mt-0 mb-3">{title}</h2>
     <p class="text-lg text-soft mb-4">{summary}</p>
     <div class="flex flex-wrap items-center gap-2 mb-3">
-      <span class={`status status-${tagSlug(status)}`}>{status}</span>
+      <StatusLight status={status} />
       {tags.map((t) => <a href={`/projects?tag=${tagSlug(t)}`} class="tag tag-link">{t}</a>)}
     </div>
     {stack.length > 0 && (

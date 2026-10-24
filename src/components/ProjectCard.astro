@@ -1,6 +1,7 @@
 ---
 import type { Project } from '../lib/content';
 import { tagSlug } from '../lib/content';
+import StatusLight from './StatusLight.astro';
 
 interface Props {
   project: Project;
@@ -12,14 +13,14 @@ const { title, summary, status, tags } = project.data;
 ---
 
 <article
-  class="project-card"
+  class={`project-card${status === 'abandoned' ? ' is-abandoned' : ''}`}
   data-tags={tags.map(tagSlug).join(' ')}
 >
   <div class="flex items-center justify-between gap-3 mb-2">
     <h3 class="text-xl font-medium m-0">
       <a href={`/projects/${project.id}`} class="nav-link">{title}</a>
     </h3>
-    <span class={`status status-${tagSlug(status)}`}>{status}</span>
+    <StatusLight status={status} />
   </div>
   <p class="text-soft m-0 mb-3">{summary}</p>
   <div class="flex flex-wrap items-center gap-2">

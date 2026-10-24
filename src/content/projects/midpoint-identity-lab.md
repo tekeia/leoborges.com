@@ -1,7 +1,7 @@
 ---
 title: "midPoint Identity Governance Lab"
 summary: "An HR-driven identity lifecycle built from scratch at home: OrangeHRM as the source of truth, midPoint for governance, and Active Directory as the target."
-status: Active
+status: active
 tags: [IAM, Identity Governance, midPoint, Active Directory, Homelab]
 stack: [midPoint, OrangeHRM, Active Directory, Windows Server, Ubuntu Server, Docker, Proxmox, PowerShell]
 featured: true

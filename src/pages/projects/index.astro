@@ -1,6 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
+import StatusLight from '../../components/StatusLight.astro';
+import { STATUSES } from '../../data/status';
 import { getPosts, getProjects, postsForProject, tagSlug } from '../../lib/content';
 
 const projects = await getProjects();
@@ -25,6 +27,10 @@ const tags = [
     <p class="text-lg text-muted mb-6">
       Identity and cloud security work I'm building and documenting. Each project links to its lab write-ups.
     </p>
+
+    <ul class="status-legend" aria-label="Status lights">
+      {STATUSES.map((s) => <li><StatusLight status={s} /></li>)}
+    </ul>
 
     <div class="flex flex-wrap gap-2 mb-8" role="group" aria-label="Filter projects by tag" id="tag-filter">
       <button type="button" class="tag-filter" data-tag="all" aria-pressed="true">All</button>
