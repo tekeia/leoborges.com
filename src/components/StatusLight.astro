@@ -1,0 +1,16 @@
+---
+import { statusInfo, type Status } from '../data/status';
+
+interface Props {
+  status: Status;
+  showLabel?: boolean;
+}
+
+const { status, showLabel = true } = Astro.props;
+const { label, meaning } = statusInfo[status];
+---
+
+<span class="status-light" title={`${label}: ${meaning}`}>
+  <span class={`led led-${status}`} aria-hidden="true"></span>
+  {showLabel ? <span class="status-label">{label}</span> : <span class="sr-only">{label}</span>}
+</span>

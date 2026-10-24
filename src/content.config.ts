@@ -1,6 +1,7 @@
 import { defineCollection, reference, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { SERIES } from './data/series';
+import { STATUSES } from './data/status';
 
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
@@ -24,7 +25,8 @@ const projects = defineCollection({
     title: z.string(),
     // One or two sentences shown on cards and the homepage.
     summary: z.string(),
-    status: z.enum(['Active', 'In progress', 'Planned', 'Complete']),
+    // Status light: active | briefly-paused | off | abandoned | complete
+    status: z.enum(STATUSES),
     tags: z.array(z.string()).min(1),
     // Tools and platforms used, shown on the project page.
     stack: z.array(z.string()).default([]),

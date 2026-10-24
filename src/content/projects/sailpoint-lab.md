@@ -1,7 +1,7 @@
 ---
 title: "SailPoint Identity Security Cloud Lab"
 summary: "Hands-on SailPoint work alongside the Administrator and Engineer certifications: sources, identity profiles, roles, access requests and certifications."
-status: Planned
+status: off
 tags: [IAM, SailPoint, Identity Governance]
 stack: [SailPoint Identity Security Cloud]
 featured: true

@@ -16,6 +16,13 @@
   --accent-hover: #0b6a31;
   --accent-soft: rgba(16, 128, 60, 0.1);
   --on-accent: #ffffff;
+  --led-green: #1fbf5b;
+  --led-yellow: #e0a800;
+  --led-red: #e5484d;
+  --led-dark: #c8ccd0;
+  --led-white: #ffffff;
+  --led-white-ring: rgba(0, 0, 0, 0.35);
+  --led-white-glow: rgba(90, 110, 140, 0.55);
 }
 .dark {
   --bg: #0b0c0d;
@@ -28,6 +35,13 @@
   --accent-hover: #2ee86f;
   --accent-soft: rgba(37, 211, 102, 0.12);
   --on-accent: #000000;
+  --led-green: #25d366;
+  --led-yellow: #f5c542;
+  --led-red: #ff5a5f;
+  --led-dark: #26292c;
+  --led-white: #ffffff;
+  --led-white-ring: rgba(255, 255, 255, 0.6);
+  --led-white-glow: rgba(220, 235, 255, 0.95);
 }
 
 @theme inline {
@@ -244,20 +258,55 @@ a.tag-link:hover { color: var(--accent) !important; border-color: var(--accent);
 .tag-filter[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 .tag-filter:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-.status {
+.status-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   flex-shrink: 0;
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 0.2rem 0.45rem;
-  border-radius: 0.25rem;
-  border: 1px solid currentColor;
+  font-size: 0.75rem;
+  color: var(--muted);
+  white-space: nowrap;
 }
-.status-active, .status-complete { color: var(--accent); }
-.status-in-progress { color: #c9921a; }
-.status-planned { color: var(--muted); }
+.led {
+  display: inline-block;
+  width: 0.62rem;
+  height: 0.62rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.led-active {
+  background: var(--led-green);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 0 6px 1px var(--led-green);
+  animation: led-pulse 2.4s ease-in-out infinite;
+}
+.led-briefly-paused { background: var(--led-yellow); box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 0 5px var(--led-yellow); }
+.led-off { background: var(--led-red); box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 0 5px var(--led-red); }
+.led-abandoned {
+  background: var(--led-dark);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.45), 0 0 0 1px var(--line);
+}
+.led-complete {
+  background: radial-gradient(circle at 40% 35%, #ffffff 0%, var(--led-white) 55%, #e8f0ff 100%);
+  box-shadow:
+    0 0 0 1px var(--led-white-ring),
+    0 0 4px 1px var(--led-white-glow),
+    0 0 12px 3px var(--led-white-glow);
+}
+@keyframes led-pulse {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 0 6px 1px var(--led-green); opacity: 1; }
+  50% { box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 0 1px 0 var(--led-green); opacity: .55; }
+}
+.status-legend {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+}
+.project-card.is-abandoned { opacity: .55; }
+.project-card.is-abandoned:hover { opacity: .85; }
 
 /* ---- Posts ------------------------------------------------------------- */
 .project-callout {
