@@ -11,11 +11,11 @@ interface Props {
 
 const {
   title,
-  description = 'Leo Borges: identity and access management, cloud security, homelab notes and whatever else I am tinkering with.',
+  description = 'Leonardo Borges: identity and access management, cloud security, homelab notes and whatever else I am tinkering with.',
   activeNav,
 } = Astro.props;
 
-const pageTitle = title ? `${title} · Leo Borges` : 'Leo Borges';
+const pageTitle = title ? `${title} · Leonardo Borges` : 'Leonardo Borges';
 
 const nav: { id: Nav; href: string; label: string }[] = [
   { id: 'blog', href: '/blog', label: 'blog' },
@@ -46,7 +46,13 @@ const nav: { id: Nav; href: string; label: string }[] = [
   <meta property="twitter:description" content={description} />
 
   <meta name="theme-color" content="#0b0c0d" />
-  <link rel="alternate" type="application/rss+xml" title="Leo Borges" href="/rss.xml" />
+  <meta name="author" content="Leonardo Borges" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="me" href="https://www.linkedin.com/in/leolbrgs/" />
+  <link rel="me" href="https://github.com/tekeia" />
+  <link rel="alternate" type="application/rss+xml" title="Leonardo Borges" href="/rss.xml" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -67,7 +73,7 @@ const nav: { id: Nav; href: string; label: string }[] = [
   <div class="mx-auto max-w-3xl px-4 sm:px-6 py-10 md:py-16">
     <header class="mb-12">
       <div class="flex items-center justify-between gap-4 mb-4">
-        <a href="/" class="prompt" aria-label="Leo Borges, home">
+        <a href="/" class="prompt" aria-label="Leonardo Borges, home">
           <span class="user">leo@borges</span><span class="path">:~$</span><span class="cursor" aria-hidden="true"></span>
         </a>
         <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle light and dark theme">
@@ -86,9 +92,10 @@ const nav: { id: Nav; href: string; label: string }[] = [
     </main>
 
     <footer class="mt-16 pt-6 border-t border-line meta flex flex-wrap gap-x-4 gap-y-1">
-      <span>&copy; {new Date().getFullYear()} Leo Borges</span>
+      <span>&copy; {new Date().getFullYear()} Leonardo Borges</span>
       <a href="/rss.xml" class="nav-link">rss</a>
       <a href="https://github.com/tekeia" class="nav-link">github</a>
+      <a href="https://www.linkedin.com/in/leolbrgs/" class="nav-link">linkedin</a>
       <a href="https://github.com/tekeia/leoborges.com" class="nav-link">source</a>
     </footer>
   </div>

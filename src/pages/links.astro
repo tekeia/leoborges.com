@@ -7,7 +7,7 @@ const links = await getLinks();
 const rendered = await Promise.all(links.map(async (l) => ({ link: l, Content: (await render(l)).Content })));
 ---
 
-<Layout title="Link log" description="Links Leo Borges found worth reading, with short commentary." activeNav="links">
+<Layout title="Link log" description="Links Leonardo Borges found worth reading, with short commentary." activeNav="links">
   <div class="not-prose mb-8">
     <h1 class="text-3xl font-semibold tracking-tight mb-2">Link log</h1>
     <p class="text-soft">Things worth reading elsewhere: docs, tools, write-ups and sites I keep coming back to, with a line or two from me.</p>

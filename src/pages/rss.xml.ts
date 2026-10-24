@@ -30,8 +30,8 @@ export async function GET(context: APIContext) {
   ].sort((a, b) => b.pubDate.valueOf() - a.pubDate.valueOf());
 
   return rss({
-    title: 'Leo Borges',
-    description: 'Identity, cloud security and homelab notes from Leo Borges.',
+    title: 'Leonardo Borges',
+    description: 'Identity, cloud security and homelab notes from Leonardo Borges.',
     site: context.site!,
     items,
   });
