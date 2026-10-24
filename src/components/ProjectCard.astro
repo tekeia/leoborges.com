@@ -21,7 +21,7 @@ const { title, summary, status, tags } = project.data;
     </h3>
     <span class={`status status-${tagSlug(status)}`}>{status}</span>
   </div>
-  <p class="text-gray-300 m-0 mb-3">{summary}</p>
+  <p class="text-soft m-0 mb-3">{summary}</p>
   <div class="flex flex-wrap items-center gap-2">
     {tags.map((t) => <span class="tag">{t}</span>)}
     {postCount > 0 && (

@@ -21,8 +21,8 @@ const tags = [
   activeNav="projects"
 >
   <div class="not-prose font-serif">
-    <h2 class="text-4xl font-light mb-2">Projects</h2>
-    <p class="text-lg text-gray-400 mb-6">
+    <h2 class="text-3xl font-semibold tracking-tight mb-2">Projects</h2>
+    <p class="text-lg text-muted mb-6">
       Identity and cloud security work I'm building and documenting. Each project links to its lab write-ups.
     </p>
 
@@ -38,7 +38,7 @@ const tags = [
         <ProjectCard project={p} postCount={postsForProject(posts, p.id).length} />
       ))}
     </div>
-    <p id="no-results" class="text-gray-400 mt-6" hidden>No projects with that tag yet.</p>
+    <p id="no-results" class="text-muted mt-6" hidden>No projects with that tag yet.</p>
   </div>
 </Layout>
 

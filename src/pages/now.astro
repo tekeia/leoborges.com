@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Update this date whenever you edit the page.
+const updated = '2026-10-24';
+---
+
+<Layout title="Now" description="What Leo Borges is working on, learning and reading right now." activeNav="now">
+  <h1 class="text-3xl tracking-tight mb-1">Now</h1>
+  <p class="not-prose meta mb-8">updated {updated} · from South Florida</p>
+
+  <h2>Working on</h2>
+  <ul>
+    <li><strong>IAM Lab:</strong> connecting midPoint to OrangeHRM so HR becomes the lab's source of truth, then automating joiner, mover and leaver flows end to end. Follow along in the <a href="/blog#iam-lab">IAM Lab series</a>.</li>
+    <li><strong>Next in the lab:</strong> <a href="/projects/wazuh-detection-lab">Wazuh</a>, watching the identity stack. After that, more security tooling: EDR, threat intel, honeypots and vulnerability management.</li>
+  </ul>
+
+  <h2>Studying</h2>
+  <ul>
+    <li>Finishing the SailPoint Administrator certification, with SailPoint Engineer next.</li>
+    <li>After that: AZ-104, paired with a <a href="/projects/hybrid-identity-entra">hybrid identity lab</a> syncing my lab domain to Entra ID.</li>
+  </ul>
+
+  <h2>Homelab</h2>
+  <ul>
+    <li>Running out of disk on the current server. Backup drives are on the way (mirrored pair), a UPS is on the list, and I'm deciding between upgrading this box or moving to a used workstation.</li>
+    <li>Planning a small rack with proper networking gear.</li>
+  </ul>
+
+  <h2>Learning</h2>
+  <ul>
+    <li>Electric guitar, self-taught. Gear is on the <a href="/uses">uses</a> page.</li>
+  </ul>
+
+  <h2>Reading &amp; listening</h2>
+  <p>Kept on the <a href="/culture">culture</a> page.</p>
+
+  <hr />
+  <p class="text-sm">This is a <a href="https://nownownow.com/about">now page</a>: what I'd tell you if we hadn't talked in a while.</p>
+</Layout>

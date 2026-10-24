@@ -1,0 +1,23 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { render } from 'astro:content';
+import { getNotes, isoDate } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const notes = await getNotes();
+  return notes.map((note) => ({ params: { slug: note.id }, props: { note } }));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+---
+
+<Layout title={note.data.title} activeNav="notes">
+  <div class="not-prose flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
+    <time class="meta" datetime={isoDate(note.data.date)}>{isoDate(note.data.date)}</time>
+    {note.data.tags.map((t) => <span class="meta">#{t}</span>)}
+  </div>
+  <h1 class="text-3xl tracking-tight mt-1">{note.data.title}</h1>
+  <Content />
+  <p class="not-prose mt-10 meta"><a href="/notes" class="nav-link">&larr; all notes</a></p>
+</Layout>

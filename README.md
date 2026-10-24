@@ -40,6 +40,18 @@ draft: false
 
 Series navigation (part X of Y, previous/next) and the project link are generated from these fields.
 
+## Adding a note
+
+Create `src/content/notes/<yyyy-mm-dd-slug>.md` with `title`, `date` and optional `tags`, then write the note in the body. Notes show in full on `/notes` and get their own page.
+
+## Adding a link
+
+Create `src/content/links/<yyyy-mm-dd-slug>.md` with `title`, `url`, `date` and optional `tags`; the body is your one- or two-line comment.
+
+## Now and Uses
+
+Edit `src/pages/now.astro` (bump the `updated` date) and `src/pages/uses.astro`.
+
 ## Commands
 
 | Command           | Action                              |
