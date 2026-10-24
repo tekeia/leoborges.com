@@ -10,7 +10,7 @@ Create `src/content/projects/<slug>.md`:
 ---
 title: "Project name"
 summary: "One or two sentences for cards and the homepage."
-status: off            # active | briefly-paused | off | abandoned
+status: off            # active | briefly-paused | off | abandoned | complete
 tags: [IAM, Cloud, Azure]   # drive the filter on /projects
 stack: [Tool, Platform]
 featured: true         # shows on the homepage (keep to 3–4)
