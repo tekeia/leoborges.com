@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Uses" description="Leonardo Borges' homelab, hardware, software and guitar gear." activeNav="uses">
+  <h1 class="text-3xl tracking-tight mb-2">Uses</h1>
+  <p>The hardware, software and tools behind my lab, my work and this site.</p>
+
+  <h2>Homelab</h2>
+  <ul>
+    <li><strong>Server:</strong> Intel Core i7-9700K, 32 GB RAM, in a compact NR400 case. Storage is the current bottleneck.</li>
+    <li><strong>Hypervisor:</strong> Proxmox VE</li>
+    <li><strong>Domain controller:</strong> Windows Server running Active Directory for the lab domain <code>whitebox.lan</code></li>
+    <li><strong>Identity governance:</strong> midPoint in Docker on Ubuntu Server</li>
+    <li><strong>HR system:</strong> OrangeHRM in Docker on its own VM, the lab's source of truth</li>
+    <li><strong>Workstation:</strong> Windows 11, domain-joined, for testing</li>
+    <li><strong>Coming soon:</strong> Wazuh, mirrored backup drives, a UPS and a small rack</li>
+  </ul>
+
+  <h2>Day job toolkit</h2>
+  <ul>
+    <li>SailPoint (Identity Security Cloud and IdentityIQ)</li>
+    <li>Okta and Microsoft Entra ID</li>
+    <li>Active Directory</li>
+    <li>Delinea Secret Server</li>
+    <li>PowerShell for anything I have to do more than twice</li>
+  </ul>
+
+  <h2>This site</h2>
+  <ul>
+    <li><a href="https://astro.build">Astro</a> and Tailwind CSS, written in Markdown</li>
+    <li>Deployed to GitHub Pages on every push (<a href="https://github.com/tekeia/leoborges.com">source</a>)</li>
+    <li>Set in JetBrains Mono and your system's sans-serif</li>
+  </ul>
+
+  <h2>Music</h2>
+  <ul>
+    <li><strong>Amp &amp; interface:</strong> Marshall amp, Focusrite Scarlett Solo</li>
+    <li><strong>Pedalboard:</strong> Boss TU-2 tuner, ProCo RAT, Warm Audio Chorus Vibrato, MXR Carbon Copy</li>
+    <li><strong>Software:</strong> AmpliTube 5, Rocksmith 2014</li>
+  </ul>
+
+  <h2>Other tinkering</h2>
+  <ul>
+    <li>A 2011 iMac running macOS Monterey thanks to OpenCore Legacy Patcher</li>
+  </ul>
+</Layout>

@@ -21,8 +21,8 @@ const series = posts[0]?.data.series;
 <Layout title={title} description={summary} activeNav="projects">
   <div class="not-prose font-serif mb-6">
     <p class="mb-3"><a href="/projects" class="nav-link text-sm">&larr; All projects</a></p>
-    <h2 class="text-4xl font-light mt-0 mb-3">{title}</h2>
-    <p class="text-lg text-gray-300 mb-4">{summary}</p>
+    <h2 class="text-3xl font-semibold tracking-tight mt-0 mb-3">{title}</h2>
+    <p class="text-lg text-soft mb-4">{summary}</p>
     <div class="flex flex-wrap items-center gap-2 mb-3">
       <span class={`status status-${tagSlug(status)}`}>{status}</span>
       {tags.map((t) => <a href={`/projects?tag=${tagSlug(t)}`} class="tag tag-link">{t}</a>)}
@@ -42,7 +42,7 @@ const series = posts[0]?.data.series;
 
   {posts.length > 0 && (
     <section class="not-prose font-serif mt-10">
-      <h3 class="text-2xl font-light mb-2">{series ? `${series} write-ups` : 'Write-ups'}</h3>
+      <h3 class="text-xl font-semibold mb-2">{series ? `${series} write-ups` : 'Write-ups'}</h3>
       <ol class="article-list">
         {posts.map((post) => (
           <li>

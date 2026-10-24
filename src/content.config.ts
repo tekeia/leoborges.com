@@ -38,4 +38,26 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { blog, projects };
+// Short posts: quick findings, commands that worked, small thoughts.
+const notes = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/notes' }),
+  schema: z.object({
+    title: z.string(),
+    date: z.coerce.date(),
+    tags: z.array(z.string()).default([]),
+    draft: z.boolean().default(false),
+  }),
+});
+
+// Link log: something worth reading elsewhere, with a line or two of commentary in the body.
+const links = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/links' }),
+  schema: z.object({
+    title: z.string(),
+    url: z.string().url(),
+    date: z.coerce.date(),
+    tags: z.array(z.string()).default([]),
+  }),
+});
+
+export const collections = { blog, projects, notes, links };

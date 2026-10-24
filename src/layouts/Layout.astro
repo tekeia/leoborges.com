@@ -1,23 +1,35 @@
 ---
 import '../styles/global.css';
 
+type Nav = 'home' | 'blog' | 'notes' | 'links' | 'projects' | 'now' | 'uses' | 'culture';
+
 interface Props {
   title?: string;
   description?: string;
-  activeNav?: 'about' | 'projects' | 'culture' | 'blog';
+  activeNav?: Nav;
 }
 
 const {
   title,
-  description = 'Leo Borges — identity security (IAM + cloud). Projects and lab notes on SailPoint, Okta, Entra ID, Azure and Terraform.',
+  description = 'Leonardo Borges: identity and access management, cloud security, homelab notes and whatever else I am tinkering with.',
   activeNav,
 } = Astro.props;
 
-const pageTitle = title ? `${title} - Leo Borges` : 'Leo Borges — Identity Security Engineering';
+const pageTitle = title ? `${title} · Leonardo Borges` : 'Leonardo Borges';
+
+const nav: { id: Nav; href: string; label: string }[] = [
+  { id: 'blog', href: '/blog', label: 'blog' },
+  { id: 'notes', href: '/notes', label: 'notes' },
+  { id: 'links', href: '/links', label: 'links' },
+  { id: 'projects', href: '/projects', label: 'projects' },
+  { id: 'now', href: '/now', label: 'now' },
+  { id: 'uses', href: '/uses', label: 'uses' },
+  { id: 'culture', href: '/culture', label: 'culture' },
+];
 ---
 
 <!DOCTYPE html>
-<html class="dark" lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -29,45 +41,75 @@ const pageTitle = title ? `${title} - Leo Borges` : 'Leo Borges — Identity Sec
   <meta property="og:type" content="website" />
   <meta property="og:title" content={pageTitle} />
   <meta property="og:description" content={description} />
-
-  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:card" content="summary" />
   <meta property="twitter:title" content={pageTitle} />
   <meta property="twitter:description" content={description} />
 
-  <meta name="theme-color" content="#25d366" />
-  <link rel="sitemap" href="/sitemap-index.xml" />
+  <meta name="theme-color" content="#0b0c0d" />
+  <meta name="author" content="Leonardo Borges" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="me" href="https://www.linkedin.com/in/leolbrgs/" />
+  <link rel="me" href="https://github.com/tekeia" />
+  <link rel="alternate" type="application/rss+xml" title="Leonardo Borges" href="/rss.xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Apply the saved theme before paint (dark by default). -->
+  <script is:inline>
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      if (t === 'light') document.documentElement.classList.remove('dark');
+      else document.documentElement.classList.add('dark');
+    })();
+  </script>
 </head>
 
-<body class="bg-black text-white">
-  <div class="items-start gap-6 p-8 md:flex md:py-20">
-    <a href="/" class="logo-mark" title="Home">.</a>
+<body class="font-serif antialiased">
+  <div class="mx-auto max-w-3xl px-4 sm:px-6 py-10 md:py-16">
+    <header class="mb-12">
+      <div class="flex items-center justify-between gap-4 mb-4">
+        <a href="/" class="prompt" aria-label="Leonardo Borges, home">
+          <span class="user">leo@borges</span><span class="path">:~$</span><span class="cursor" aria-hidden="true"></span>
+        </a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle light and dark theme">
+          <span class="when-dark">[light]</span><span class="when-light">[dark]</span>
+        </button>
+      </div>
+      <nav class="site-nav" aria-label="Main">
+        {nav.map((n) => (
+          <a href={n.href} class={activeNav === n.id ? 'active' : ''} aria-current={activeNav === n.id ? 'page' : undefined}>{n.label}</a>
+        ))}
+      </nav>
+    </header>
 
-    <div class="mt-6 md:mt-0 flex-1">
-      <header class="mb-10 font-serif prose prose-invert max-w-none">
-        <h1 class="mb-1 text-5xl md:text-6xl font-light tracking-tight">Leo Borges</h1>
-        <p class="tagline not-prose">Identity security · IAM + Cloud</p>
-        <nav class="text-xl not-prose flex flex-wrap gap-x-3 gap-y-1">
-          <a href="/" class={`nav-link ${activeNav === 'about' ? 'active' : ''}`}>About</a>
-          <span class="opacity-30">/</span>
-          <a href="/projects" class={`nav-link ${activeNav === 'projects' ? 'active' : ''}`}>Projects</a>
-          <span class="opacity-30">/</span>
-          <a href="/blog" class={`nav-link ${activeNav === 'blog' ? 'active' : ''}`}>Blog</a>
-          <span class="opacity-30">/</span>
-          <a href="/culture" class={`nav-link ${activeNav === 'culture' ? 'active' : ''}`}>Culture</a>
-        </nav>
-      </header>
+    <main class="prose dark:prose-invert max-w-none prose-headings:font-semibold">
+      <slot />
+    </main>
 
-      <main class="font-serif prose prose-invert max-w-2xl">
-        <slot />
-      </main>
-
-      <footer class="my-12 font-serif text-sm prose text-gray-400 prose-invert">
-        <p>
-          This thing is <a href="https://github.com/tekeia/leoborges.com" class="nav-link">open source</a>, for better or worse.
-        </p>
-      </footer>
-    </div>
+    <footer class="mt-16 pt-6 border-t border-line meta flex flex-wrap gap-x-4 gap-y-1">
+      <span>&copy; {new Date().getFullYear()} Leonardo Borges</span>
+      <a href="/rss.xml" class="nav-link">rss</a>
+      <a href="https://github.com/tekeia" class="nav-link">github</a>
+      <a href="https://www.linkedin.com/in/leolbrgs/" class="nav-link">linkedin</a>
+      <a href="https://github.com/tekeia/leoborges.com" class="nav-link">source</a>
+    </footer>
   </div>
-</body>
 
+  <style>
+    :global(.dark) .when-light { display: none; }
+    :global(html:not(.dark)) .when-dark { display: none; }
+  </style>
+
+  <script is:inline>
+    document.getElementById('theme-toggle').addEventListener('click', function () {
+      var dark = document.documentElement.classList.toggle('dark');
+      try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
+    });
+  </script>
+</body>
 </html>

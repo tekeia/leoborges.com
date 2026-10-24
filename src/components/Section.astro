@@ -1,0 +1,45 @@
+---
+import { isoDate } from '../lib/content';
+
+interface Item {
+  href: string;
+  title: string;
+  date: Date;
+  external?: boolean;
+  meta?: string;
+}
+
+interface Props {
+  id: string;
+  title: string;
+  description?: string;
+  items: Item[];
+  more?: { href: string; label: string };
+  empty?: string;
+}
+
+const { id, title, description, items, more, empty = 'Nothing here yet.' } = Astro.props;
+---
+
+<section class="not-prose mt-12" aria-labelledby={`${id}-title`}>
+  <div class="flex items-baseline justify-between gap-3 mb-1">
+    <h2 id={`${id}-title`} class="section-title"><span class="hash">#</span>{title}</h2>
+    {more && <a href={more.href} class="nav-link meta">{more.label} &rarr;</a>}
+  </div>
+  {description && <p class="text-muted text-sm mb-3 mt-1">{description}</p>}
+  {items.length > 0 ? (
+    <ul class="entries">
+      {items.map((item) => (
+        <li>
+          <time datetime={isoDate(item.date)}>{isoDate(item.date)}</time>
+          <span>
+            <a href={item.href} class="nav-link" {...(item.external ? { rel: 'noopener' } : {})}>{item.title}</a>
+            {item.meta && <span class="meta ml-2">{item.meta}</span>}
+          </span>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p class="meta">{empty}</p>
+  )}
+</section>

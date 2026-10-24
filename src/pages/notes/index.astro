@@ -1,0 +1,26 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { render } from 'astro:content';
+import { getNotes, isoDate } from '../../lib/content';
+
+const notes = await getNotes();
+const rendered = await Promise.all(notes.map(async (n) => ({ note: n, Content: (await render(n)).Content })));
+---
+
+<Layout title="Notes" description="Short notes from Leonardo Borges: quick findings, small wins and passing thoughts." activeNav="notes">
+  <div class="not-prose mb-8">
+    <h1 class="text-3xl font-semibold tracking-tight mb-2">Notes</h1>
+    <p class="text-soft">Short posts: quick findings, commands that worked, small wins and passing thoughts. Longer write-ups live on the <a href="/blog" class="nav-link">blog</a>.</p>
+  </div>
+
+  {rendered.map(({ note, Content }) => (
+    <article class="border-t border-line pt-6 mt-6 first-of-type:border-0 first-of-type:pt-0 first-of-type:mt-0">
+      <div class="not-prose flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
+        <a href={`/notes/${note.id}`} class="meta nav-link"><time datetime={isoDate(note.data.date)}>{isoDate(note.data.date)}</time></a>
+        {note.data.tags.map((t) => <span class="meta">#{t}</span>)}
+      </div>
+      <h2 class="mt-1 mb-2 text-xl">{note.data.title}</h2>
+      <Content />
+    </article>
+  ))}
+</Layout>

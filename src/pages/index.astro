@@ -1,74 +1,105 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import { getPosts, getProjects, postsForProject, formatDate } from '../lib/content';
+import Section from '../components/Section.astro';
+import { getPosts, getNotes, getLinks, getProjects, isoDate, hostname } from '../lib/content';
 
 const posts = await getPosts();
+const notes = await getNotes();
+const links = await getLinks();
 const projects = await getProjects();
-const featured = projects.filter((p) => p.data.featured).slice(0, 4);
-const latest = posts.slice(0, 3);
 
-const focus = [
-  { area: 'Identity governance', detail: 'SailPoint, midPoint, HR-driven joiner/mover/leaver' },
-  { area: 'Access management', detail: 'Okta, Microsoft Entra ID, Active Directory, PAM' },
-  { area: 'Cloud & automation', detail: 'Azure, Terraform, PowerShell' },
-  { area: 'Detection & monitoring', detail: 'Wazuh, SIEM, identity attack detection' },
+const latest = posts[0];
+const lastUpdated = [posts[0], notes[0], links[0]]
+  .filter(Boolean)
+  .map((e) => e!.data.date)
+  .sort((a, b) => b.valueOf() - a.valueOf())[0];
+
+const pages = [
+  { href: '/now', label: '/now', text: "what I'm working on, learning and reading right now" },
+  { href: '/uses', label: '/uses', text: 'my homelab, hardware and the tools I use every day' },
+  { href: '/projects', label: '/projects', text: `${projects.length} identity, cloud and security projects` },
+  { href: '/culture', label: '/culture', text: "books, music and films I'm into" },
+  { href: '/rss.xml', label: '/rss.xml', text: 'everything on this site, in your feed reader' },
 ];
 ---
 
-<Layout activeNav="about">
-  <p class="text-3xl leading-snug">
-    I'm Leo, and I work on identity security: who gets access to what, how that access is granted, and how it's taken away.
-  </p>
-  <p class="text-xl text-gray-300">
-    Today I'm an IAM administrator in banking, running SailPoint, Okta, Entra ID, Delinea and Active Directory in production.
-    I'm building toward identity security engineering, combining IAM with cloud security, and I document the labs I build along the way.
-  </p>
+<Layout activeNav="home">
+  <div class="not-prose">
+    <p class="text-2xl leading-relaxed text-fg mb-4">
+      Olá! I'm Leo. I work in identity and access management, and after hours I build (and break) a homelab
+      to learn the parts of security my day job doesn't reach.
+    </p>
+    <p class="text-lg leading-relaxed text-soft">
+      This is my corner of the web: lab write-ups, short notes, links worth your time, and whatever else
+      I'm tinkering with across identity, cloud security, tech and life. Pull up a chair.
+    </p>
 
-  <div class="not-prose font-serif mt-8">
-    <ul class="article-list">
-      {focus.map((f) => (
+    {latest && (
+      <article class="panel mt-10">
+        <div class="label mb-2">latest post</div>
+        <h2 class="text-xl font-semibold m-0 mb-2 leading-snug">
+          <a href={`/blog/${latest.id}`} class="nav-link">{latest.data.title}</a>
+        </h2>
+        {latest.data.description && <p class="text-soft m-0 mb-2">{latest.data.description}</p>}
+        <p class="meta m-0">
+          {isoDate(latest.data.date)}{latest.data.series && ` · ${latest.data.series}`}
+        </p>
+      </article>
+    )}
+
+    <p class="meta mt-6">
+      last updated {lastUpdated && isoDate(lastUpdated)} · {posts.length} posts · {notes.length} notes · {links.length} links
+    </p>
+  </div>
+
+  <Section
+    id="blog"
+    title="lab notes"
+    description="Long-form write-ups from the IAM, Cloud and Security lab series."
+    items={posts.slice(0, 5).map((p) => ({ href: `/blog/${p.id}`, title: p.data.title, date: p.data.date }))}
+    more={{ href: '/blog', label: 'all posts' }}
+  />
+
+  <Section
+    id="notes"
+    title="notes"
+    description="Short posts: quick findings, small wins and passing thoughts."
+    items={notes.slice(0, 5).map((n) => ({ href: `/notes/${n.id}`, title: n.data.title, date: n.data.date }))}
+    more={{ href: '/notes', label: 'all notes' }}
+  />
+
+  <Section
+    id="links"
+    title="link log"
+    description="Things worth reading elsewhere, with a line or two from me."
+    items={links.slice(0, 5).map((l) => ({
+      href: l.data.url,
+      title: l.data.title,
+      date: l.data.date,
+      external: true,
+      meta: hostname(l.data.url),
+    }))}
+    more={{ href: '/links', label: 'all links' }}
+  />
+
+  <section class="not-prose mt-12" aria-labelledby="around-title">
+    <h2 id="around-title" class="section-title mb-3"><span class="hash">#</span>around the site</h2>
+    <ul class="entries">
+      {pages.map((p) => (
         <li>
-          <span class="text-lg font-medium">{f.area}</span>
-          <div class="article-date">{f.detail}</div>
+          <a href={p.href} class="nav-link mono text-sm">{p.label}</a>
+          <span class="text-soft">{p.text}</span>
         </li>
       ))}
     </ul>
-    <p class="article-date mt-4">Certifications: CEH · Security+ · ISC2 CC · CIAM · B.S. Cybersecurity</p>
-  </div>
-
-  <section class="not-prose font-serif mt-12">
-    <div class="flex items-baseline justify-between mb-4">
-      <h2 class="text-3xl font-light m-0">Featured projects</h2>
-      <a href="/projects" class="nav-link text-sm">All projects &rarr;</a>
-    </div>
-    <div class="flex flex-col gap-4">
-      {featured.map((p) => (
-        <ProjectCard project={p} postCount={postsForProject(posts, p.id).length} />
-      ))}
-    </div>
   </section>
 
-  {latest.length > 0 && (
-    <section class="not-prose font-serif mt-12">
-      <div class="flex items-baseline justify-between mb-2">
-        <h2 class="text-3xl font-light m-0">Latest lab notes</h2>
-        <a href="/blog" class="nav-link text-sm">All posts &rarr;</a>
-      </div>
-      <ul class="article-list">
-        {latest.map((post) => (
-          <li>
-            <a href={`/blog/${post.id}`} class="nav-link text-lg font-medium">{post.data.title}</a>
-            <div class="article-date">
-              {post.data.series && `${post.data.series} · `}{formatDate(post.data.date)}
-            </div>
-          </li>
-        ))}
-      </ul>
-    </section>
-  )}
-
-  <p class="text-xl mt-12">
-    Find me on <a href="https://github.com/tekeia">GitHub</a>.
-  </p>
+  <section class="not-prose mt-12" aria-labelledby="contact-title">
+    <h2 id="contact-title" class="section-title mb-3"><span class="hash">#</span>say hi</h2>
+    <p class="text-soft">
+      Find me on <a href="https://www.linkedin.com/in/leolbrgs/" class="nav-link">LinkedIn</a> and
+      <a href="https://github.com/tekeia" class="nav-link">GitHub</a>, or follow along with the
+      <a href="/rss.xml" class="nav-link">RSS feed</a>.
+    </p>
+  </section>
 </Layout>

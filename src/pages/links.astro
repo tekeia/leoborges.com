@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { render } from 'astro:content';
+import { getLinks, isoDate, hostname } from '../lib/content';
+
+const links = await getLinks();
+const rendered = await Promise.all(links.map(async (l) => ({ link: l, Content: (await render(l)).Content })));
+---
+
+<Layout title="Link log" description="Links Leonardo Borges found worth reading, with short commentary." activeNav="links">
+  <div class="not-prose mb-8">
+    <h1 class="text-3xl font-semibold tracking-tight mb-2">Link log</h1>
+    <p class="text-soft">Things worth reading elsewhere: docs, tools, write-ups and sites I keep coming back to, with a line or two from me.</p>
+  </div>
+
+  {rendered.map(({ link, Content }) => (
+    <article class="border-t border-line pt-5 mt-5 first-of-type:border-0 first-of-type:pt-0 first-of-type:mt-0">
+      <div class="not-prose">
+        <a href={link.data.url} class="nav-link text-lg font-semibold" rel="noopener">{link.data.title}</a>
+        <div class="meta mt-1">
+          <time datetime={isoDate(link.data.date)}>{isoDate(link.data.date)}</time> · {hostname(link.data.url)}
+          {link.data.tags.map((t) => <span class="ml-2">#{t}</span>)}
+        </div>
+      </div>
+      <div class="[&>p]:my-2"><Content /></div>
+    </article>
+  ))}
+</Layout>

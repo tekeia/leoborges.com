@@ -35,6 +35,27 @@ export function postsForProject(posts: Post[], projectId: string): Post[] {
   return inSeriesOrder(posts.filter((p) => p.data.project?.id === projectId));
 }
 
+export type Note = CollectionEntry<'notes'>;
+export type LinkEntry = CollectionEntry<'links'>;
+
+const newestFirst = (a: { data: { date: Date } }, b: { data: { date: Date } }) =>
+  b.data.date.valueOf() - a.data.date.valueOf();
+
+export async function getNotes(): Promise<Note[]> {
+  const notes = await getCollection('notes', ({ data }) => !data.draft);
+  return notes.sort((a, b) => newestFirst(a, b) || b.id.localeCompare(a.id));
+}
+
+export async function getLinks(): Promise<LinkEntry[]> {
+  const links = await getCollection('links');
+  return links.sort((a, b) => newestFirst(a, b) || b.id.localeCompare(a.id));
+}
+
+/** 2026-10-24 */
+export const isoDate = (date: Date) => date.toISOString().slice(0, 10);
+
+export const hostname = (url: string) => new URL(url).hostname.replace(/^www\./, '');
+
 export const tagSlug = (tag: string) => tag.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
 export const formatDate = (date: Date) =>
