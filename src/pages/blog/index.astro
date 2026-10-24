@@ -1,27 +1,83 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getEntry } from 'astro:content';
+import { SERIES, seriesInfo, seriesSlug } from '../../data/series';
+import { getPosts, inSeriesOrder, formatDate } from '../../lib/content';
 
-const posts = (await getCollection('blog')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+const posts = await getPosts();
+
+const series = await Promise.all(
+  SERIES.map(async (name) => {
+    const info = seriesInfo[name];
+    const project = info?.project ? await getEntry('projects', info.project) : undefined;
+    return {
+      name,
+      description: info?.description,
+      project,
+      posts: inSeriesOrder(posts.filter((p) => p.data.series === name)),
+    };
+  })
 );
 
-const formatDate = (date: Date) =>
-  date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+const other = posts.filter((p) => !p.data.series);
 ---
 
-<Layout title="Blog" activeNav="blog">
+<Layout
+  title="Blog"
+  description="Lab notes from Leo Borges: the IAM Lab and Cloud Lab series, building identity and cloud security from scratch."
+  activeNav="blog"
+>
   <div class="not-prose font-serif">
-    <h2 class="text-4xl font-light mb-6">Blog</h2>
-    <ul class="article-list">
-      {posts.map((post) => (
-        <li>
-          <a href={`/blog/${post.id}`} class="nav-link text-lg font-medium">
-            {post.data.title}
-          </a>
-          <div class="article-date">{formatDate(post.data.date)}</div>
-        </li>
-      ))}
-    </ul>
+    <h2 class="text-4xl font-light mb-2">Blog</h2>
+    <p class="text-lg text-gray-400 mb-4">
+      Lab notes, written as I build. Each series documents one of my <a href="/projects" class="nav-link">projects</a>.
+    </p>
+    <p class="flex flex-wrap gap-x-3 gap-y-1 mb-2 text-sm">
+      {series.map((s) => <a href={`#${seriesSlug(s.name)}`} class="nav-link">{s.name}</a>)}
+      {other.length > 0 && <a href="#other" class="nav-link">Other writing</a>}
+    </p>
+
+    {series.map((s) => (
+      <section id={seriesSlug(s.name)} class="mt-10 scroll-mt-8">
+        <div class="flex items-baseline justify-between gap-3 mb-1">
+          <h3 class="text-2xl font-light m-0">{s.name}</h3>
+          {s.posts.length > 0 && (
+            <span class="article-date m-0">{s.posts.length} {s.posts.length === 1 ? 'post' : 'posts'}</span>
+          )}
+        </div>
+        {s.description && <p class="text-gray-400 mb-2">{s.description}</p>}
+        {s.project && (
+          <p class="text-sm mb-2">
+            Project: <a href={`/projects/${s.project.id}`} class="nav-link">{s.project.data.title}</a>
+          </p>
+        )}
+        {s.posts.length > 0 ? (
+          <ol class="article-list">
+            {s.posts.map((post) => (
+              <li>
+                <a href={`/blog/${post.id}`} class="nav-link text-lg font-medium">{post.data.title}</a>
+                <div class="article-date">{formatDate(post.data.date)}</div>
+              </li>
+            ))}
+          </ol>
+        ) : (
+          <p class="article-date">First posts coming soon.</p>
+        )}
+      </section>
+    ))}
+
+    {other.length > 0 && (
+      <section id="other" class="mt-10 scroll-mt-8">
+        <h3 class="text-2xl font-light mb-2">Other writing</h3>
+        <ul class="article-list">
+          {other.map((post) => (
+            <li>
+              <a href={`/blog/${post.id}`} class="nav-link text-lg font-medium">{post.data.title}</a>
+              <div class="article-date">{formatDate(post.data.date)}</div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
   </div>
 </Layout>

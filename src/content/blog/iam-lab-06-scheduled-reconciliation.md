@@ -2,6 +2,10 @@
 title: "IAM Lab #6: Keeping midPoint in sync with scheduled reconciliation"
 date: 2026-10-17
 description: "Setting up a recurring reconciliation task so midPoint picks up changes in Active Directory automatically, and handling multi-valued attributes."
+series: "IAM Lab"
+part: 6
+project: midpoint-identity-lab
+tags: ["IAM", "midPoint", "Reconciliation"]
 ---
 
 After the initial import, midPoint only knew what AD looked like at that moment. If someone's department changed in AD, midPoint wouldn't notice until I ran another import by hand. In this post I set up a scheduled reconciliation task so midPoint keeps up with AD on its own.

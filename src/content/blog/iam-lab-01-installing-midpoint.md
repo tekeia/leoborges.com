@@ -2,6 +2,10 @@
 title: "IAM Lab #1: Installing midPoint with Docker on Ubuntu Server"
 date: 2026-10-16
 description: "Installing Docker on an Ubuntu Server VM in Proxmox, then starting midPoint with Evolveum's quickstart script."
+series: "IAM Lab"
+part: 1
+project: midpoint-identity-lab
+tags: ["IAM", "midPoint", "Docker"]
 ---
 
 With Ubuntu Server running as a VM on Proxmox, the next step is getting midPoint up. midPoint is an open source identity governance platform, and the quickest way to run it is with Docker, which is a prerequisite for Evolveum's quickstart script.

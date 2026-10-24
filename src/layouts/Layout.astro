@@ -9,11 +9,11 @@ interface Props {
 
 const {
   title,
-  description = 'Leo Borges personal website.',
+  description = 'Leo Borges — identity security (IAM + cloud). Projects and lab notes on SailPoint, Okta, Entra ID, Azure and Terraform.',
   activeNav,
 } = Astro.props;
 
-const pageTitle = title ? `${title} - leoborges.com` : 'leoborges.com';
+const pageTitle = title ? `${title} - Leo Borges` : 'Leo Borges — Identity Security Engineering';
 ---
 
 <!DOCTYPE html>
@@ -44,15 +44,16 @@ const pageTitle = title ? `${title} - leoborges.com` : 'leoborges.com';
 
     <div class="mt-6 md:mt-0 flex-1">
       <header class="mb-10 font-serif prose prose-invert max-w-none">
-        <h1 class="mb-3 text-5xl md:text-6xl font-light tracking-tight">Leo Borges</h1>
+        <h1 class="mb-1 text-5xl md:text-6xl font-light tracking-tight">Leo Borges</h1>
+        <p class="tagline not-prose">Identity security · IAM + Cloud</p>
         <nav class="text-xl not-prose flex flex-wrap gap-x-3 gap-y-1">
           <a href="/" class={`nav-link ${activeNav === 'about' ? 'active' : ''}`}>About</a>
           <span class="opacity-30">/</span>
           <a href="/projects" class={`nav-link ${activeNav === 'projects' ? 'active' : ''}`}>Projects</a>
           <span class="opacity-30">/</span>
-          <a href="/culture" class={`nav-link ${activeNav === 'culture' ? 'active' : ''}`}>Culture</a>
-          <span class="opacity-30">/</span>
           <a href="/blog" class={`nav-link ${activeNav === 'blog' ? 'active' : ''}`}>Blog</a>
+          <span class="opacity-30">/</span>
+          <a href="/culture" class={`nav-link ${activeNav === 'culture' ? 'active' : ''}`}>Culture</a>
         </nav>
       </header>
 
@@ -62,7 +63,7 @@ const pageTitle = title ? `${title} - leoborges.com` : 'leoborges.com';
 
       <footer class="my-12 font-serif text-sm prose text-gray-400 prose-invert">
         <p>
-          This thing is <a href="https://github.com/leoborges/leoborges.com" class="nav-link">open source</a>, for better or worse.
+          This thing is <a href="https://github.com/tekeia/leoborges.com" class="nav-link">open source</a>, for better or worse.
         </p>
       </footer>
     </div>
