@@ -1,6 +1,6 @@
 // Lab series a blog post can belong to (the `series` field in post frontmatter).
 // To start a new series, add its name here and an entry in seriesInfo below.
-export const SERIES = ['IAM Lab', 'Cloud Lab'] as const;
+export const SERIES = ['IAM Lab', 'Cloud Lab', 'Security Lab'] as const;
 
 // Display info for each lab series. Keys must match SERIES above.
 export const seriesInfo: Record<string, { description: string; project?: string }> = {
@@ -13,6 +13,11 @@ export const seriesInfo: Record<string, { description: string; project?: string 
     description:
       'Extending the lab into the cloud: hybrid identity with Entra ID, Azure administration, and infrastructure as code with Terraform.',
     project: 'hybrid-identity-entra',
+  },
+  'Security Lab': {
+    description:
+      'Monitoring and defending the lab: Wazuh as SIEM and XDR, identity attack detection, and the other security tools I deploy along the way.',
+    project: 'wazuh-detection-lab',
   },
 };
 

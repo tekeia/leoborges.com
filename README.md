@@ -30,7 +30,7 @@ Create `src/content/blog/<slug>.md`:
 title: "Cloud Lab #1: ..."
 date: 2026-11-01
 description: "..."
-series: "Cloud Lab"    # IAM Lab | Cloud Lab (list lives in src/data/series.ts)
+series: "Cloud Lab"    # IAM Lab | Cloud Lab | Security Lab (list lives in src/data/series.ts)
 part: 1
 project: hybrid-identity-entra   # project file name; the post appears on that project page
 tags: [Azure, Entra ID]
