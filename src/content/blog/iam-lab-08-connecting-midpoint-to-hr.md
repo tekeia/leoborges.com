@@ -155,7 +155,9 @@ cat .env
 
 A `.env` file holds environment variables: settings an application reads when it starts, kept outside its code and configuration. Docker Compose reads the `.env` in the same folder automatically and fills in the `${...}` placeholders in `docker-compose.yml`. That's how the database passwords reach the MariaDB container without being written into the compose file, so the compose file is safe to share or put in Git. The `.env` itself never goes into Git.
 
-The password I'd used was there. I tried it against the OrangeHRM database and it worked, so I could finish the wizard without changing anything. Had it not been there, the fallback was to log in as root and set a new one with `ALTER USER`.
+The password I'd used was there. When I set up the database and created `midpoint_ro`, I'd given the account the same password I used for the database itself. I tried it against the OrangeHRM database and it worked, so I could finish the wizard without changing anything. Had it not been there, the fallback was to log in as root and set a new one with `ALTER USER`.
+
+Finding it that way also exposed a mistake. `midpoint_ro` is a separate, read-only account, so midPoint itself never gets more than `SELECT` on one view. But a shared password undoes that separation: anyone who learns the password midPoint uses, from its configuration or a leaked `.env`, can try it on the more powerful accounts. Least privilege on the account only works if its credential is unique too. Giving `midpoint_ro` its own password is the first thing on my list for the next session.
 
 It also made me look at that `.env` file differently: database passwords sit there in plain text for anyone with a shell on `hr01`. That's acceptable in a home lab, but in production those secrets would live in a vault and be injected at runtime, the same reason midPoint offers secrets providers.
 
