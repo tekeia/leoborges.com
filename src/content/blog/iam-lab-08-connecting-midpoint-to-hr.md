@@ -144,16 +144,18 @@ The **+** shortcut for new resources also crashed in my midPoint version; the **
 
 ### The password I forgot
 
-Halfway through the wizard I realized I didn't remember the `midpoint_ro` password. There's no way to read a MariaDB password back, but root can set a new one, so the real question was getting in as root.
+Halfway through the wizard I realized I didn't remember the `midpoint_ro` password. There's no way to read a MariaDB password back, but root can set a new one, so the real question was getting in as root. And I didn't have the database root password saved anywhere.
 
-The database root password is a secret I keep in 1Password, and it's also stored in the `.env` file Docker Compose reads on `hr01`. So I SSH'd into `hr01` and printed it:
+What I did have were the server's login credentials, saved in 1Password, the password manager I use personally. That was enough. I SSH'd into `hr01`, went into the OrangeHRM folder and read the `.env` file:
 
 ```bash
 cd ~/orangehrm
 cat .env
 ```
 
-With root access, one statement reset the account:
+A `.env` file holds environment variables: settings an application reads when it starts, kept outside its code and configuration. Docker Compose reads the `.env` in the same folder automatically and fills in the `${...}` placeholders in `docker-compose.yml`. That's how the database root password reaches the MariaDB container without being written into the compose file, so the compose file is safe to share or put in Git. The `.env` itself never goes into Git.
+
+That's where `DB_ROOT_PASSWORD` was. With root access, one statement reset the account:
 
 ```sql
 ALTER USER 'midpoint_ro'@'%' IDENTIFIED BY 'a-new-strong-password';
