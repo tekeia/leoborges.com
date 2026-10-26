@@ -27,9 +27,10 @@ Build the identity lifecycle a real company runs, joiner, mover and leaver, usin
 - Initial import of AD accounts into midPoint, scoped to the Employees OU
 - Scheduled reconciliation so midPoint picks up AD changes on its own
 - OrangeHRM deployed as the HR source, with test employees ready for correlation and a first joiner
+- midPoint connected to HR through a database view and a read-only account, using the DatabaseTableConnector over JDBC
 
 ## Next
 
-Connect midPoint to the HR database, switch the source of truth from AD to HR, then automate joiner, mover and leaver flows end to end.
+Inbound mappings with generated usernames and emails, two-tier correlation to link existing users to their HR records, then switch the source of truth from AD to HR and automate joiner, mover and leaver flows end to end.
 
 The full build log is in the IAM Lab series below.
