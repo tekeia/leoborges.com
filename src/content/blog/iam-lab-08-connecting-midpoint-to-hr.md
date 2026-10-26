@@ -144,24 +144,22 @@ The **+** shortcut for new resources also crashed in my midPoint version; the **
 
 ### The password I forgot
 
-Halfway through the wizard I realized I didn't remember the `midpoint_ro` password. There's no way to read a MariaDB password back, but root can set a new one, so the real question was getting in as root.
+Halfway through the wizard I realized I didn't remember the `midpoint_ro` password.
 
-The database root password is a secret I keep in 1Password, and it's also stored in the `.env` file Docker Compose reads on `hr01`. So I SSH'd into `hr01` and printed it:
+What I did have were the server's login credentials, saved in 1Password, the password manager I use personally. That was enough. I SSH'd into `hr01`, went into the OrangeHRM folder and read the `.env` file:
 
 ```bash
 cd ~/orangehrm
 cat .env
 ```
 
-With root access, one statement reset the account:
+A `.env` file holds environment variables: settings an application reads when it starts, kept outside its code and configuration. Docker Compose reads the `.env` in the same folder automatically and fills in the `${...}` placeholders in `docker-compose.yml`. That's how the database passwords reach the MariaDB container without being written into the compose file, so the compose file is safe to share or put in Git. The `.env` itself never goes into Git.
 
-```sql
-ALTER USER 'midpoint_ro'@'%' IDENTIFIED BY 'a-new-strong-password';
-```
+The password I'd used was there. When I set up the database and created `midpoint_ro`, I'd given the account the same password I used for the database itself. I tried it against the OrangeHRM database and it worked, so I could finish the wizard without changing anything. Had it not been there, the fallback was to log in as root and set a new one with `ALTER USER`.
 
-`ALTER USER` only changes the password; the account's permission on the view stays the same. I tested the new password from the midPoint VM with the same `mariadb` command as before, then saved it in 1Password right away.
+Finding it that way also exposed a mistake. `midpoint_ro` is a separate, read-only account, so midPoint itself never gets more than `SELECT` on one view. But a shared password undoes that separation: anyone who learns the password midPoint uses, from its configuration or a leaked `.env`, can try it on the more powerful accounts. Least privilege on the account only works if its credential is unique too. Giving `midpoint_ro` its own password is the first thing on my list for the next session.
 
-It also made me look at that `.env` file differently: the database root password sits there in plain text for anyone with a shell on `hr01`. That's acceptable in a home lab, but in production that secret would live in a vault and be injected at runtime, the same reason midPoint offers secrets providers.
+It also made me look at that `.env` file differently: database passwords sit there in plain text for anyone with a shell on `hr01`. That's acceptable in a home lab, but in production those secrets would live in a vault and be injected at runtime, the same reason midPoint offers secrets providers.
 
 ## Schema and object type
 
