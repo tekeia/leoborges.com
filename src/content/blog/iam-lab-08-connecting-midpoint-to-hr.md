@@ -140,10 +140,28 @@ The less obvious ones:
 
 The first connection test failed, even though the password was right. The cause: I had put `midpoint_employees` in the **Database** field instead of `orangehrm`. The **Table** and **Key column** fields were hidden under **Show empty fields**, so I never filled them in. Once I fixed those, the connection worked.
 
-Two smaller lessons along the way:
+The **+** shortcut for new resources also crashed in my midPoint version; the **Resources** menu worked.
 
-- I'd forgotten the `midpoint_ro` password. As root, `ALTER USER 'midpoint_ro'@'%' IDENTIFIED BY '...';` resets it without touching its permissions. It went straight into my password manager this time.
-- The **+** shortcut for new resources crashed in my midPoint version; the **Resources** menu worked.
+### The password I forgot
+
+Halfway through the wizard I realized I didn't remember the `midpoint_ro` password. There's no way to read a MariaDB password back, but root can set a new one, so the real question was getting in as root.
+
+The database root password is a secret I keep in 1Password, and it's also stored in the `.env` file Docker Compose reads on `hr01`. So I SSH'd into `hr01` and printed it:
+
+```bash
+cd ~/orangehrm
+cat .env
+```
+
+With root access, one statement reset the account:
+
+```sql
+ALTER USER 'midpoint_ro'@'%' IDENTIFIED BY 'a-new-strong-password';
+```
+
+`ALTER USER` only changes the password; the account's permission on the view stays the same. I tested the new password from the midPoint VM with the same `mariadb` command as before, then saved it in 1Password right away.
+
+It also made me look at that `.env` file differently: the database root password sits there in plain text for anyone with a shell on `hr01`. That's acceptable in a home lab, but in production that secret would live in a vault and be injected at runtime, the same reason midPoint offers secrets providers.
 
 ## Schema and object type
 
