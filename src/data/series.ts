@@ -11,7 +11,7 @@ export const seriesInfo: Record<string, { description: string; project?: string 
   },
   'Cloud Lab': {
     description:
-      'Extending the lab into the cloud: hybrid identity with Entra ID, Azure administration, and infrastructure as code with Terraform.',
+      'Extending the lab into the cloud: hybrid identity with Entra ID, AWS identity and workload federation, and infrastructure as code with Terraform.',
     project: 'hybrid-identity-entra',
   },
   'Security Lab': {

@@ -5,7 +5,7 @@ status: off
 tags: [Cloud, Terraform, Azure, Entra ID, IaC]
 stack: [Terraform, Azure, Microsoft Entra ID, GitHub Actions]
 featured: true
-order: 4
+order: 6
 ---
 
 ## Goal
