@@ -17,9 +17,9 @@ const { title, summary, status, tags } = project.data;
   data-tags={tags.map(tagSlug).join(' ')}
 >
   <div class="flex items-center justify-between gap-3 mb-2">
-    <h3 class="text-xl font-medium m-0">
+    <h2 class="text-xl font-medium m-0">
       <a href={`/projects/${project.id}`} class="nav-link">{title}</a>
-    </h3>
+    </h2>
     <StatusLight status={status} />
   </div>
   <p class="text-soft m-0 mb-3">{summary}</p>

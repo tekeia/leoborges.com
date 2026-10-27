@@ -28,7 +28,7 @@ const other = posts.filter((p) => !p.data.series);
   activeNav="blog"
 >
   <div class="not-prose font-serif">
-    <h2 class="text-3xl font-semibold tracking-tight mb-2">Blog</h2>
+    <h1 class="text-3xl font-semibold tracking-tight mb-2">Blog</h1>
     <p class="text-lg text-muted mb-4">
       Lab notes, written as I build. Each series documents one of my <a href="/projects" class="nav-link">projects</a>.
     </p>
@@ -40,7 +40,7 @@ const other = posts.filter((p) => !p.data.series);
     {series.map((s) => (
       <section id={seriesSlug(s.name)} class="mt-10 scroll-mt-8">
         <div class="flex items-baseline justify-between gap-3 mb-1">
-          <h3 class="text-xl font-semibold m-0">{s.name}</h3>
+          <h2 class="text-xl font-semibold m-0">{s.name}</h2>
           {s.posts.length > 0 && (
             <span class="article-date m-0">{s.posts.length} {s.posts.length === 1 ? 'post' : 'posts'}</span>
           )}
@@ -68,7 +68,7 @@ const other = posts.filter((p) => !p.data.series);
 
     {other.length > 0 && (
       <section id="other" class="mt-10 scroll-mt-8">
-        <h3 class="text-xl font-semibold mb-2">Other writing</h3>
+        <h2 class="text-xl font-semibold mb-2">Other writing</h2>
         <ul class="article-list">
           {other.map((post) => (
             <li>

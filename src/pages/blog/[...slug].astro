@@ -34,12 +34,12 @@ const { series } = post.data;
     {series && position && (
       <p class="text-sm mb-1">
         <a href={`/blog#${seriesSlug(series)}`} class="nav-link">{series}</a>
-        <span class="text-muted"> · Part {position.index} of {position.total}</span>
+        <span class="text-muted"> series · {position.total} posts</span>
       </p>
     )}
     <p class="text-sm text-muted mb-1">{formatDate(post.data.date)}</p>
   </div>
-  <h2 class="text-3xl font-semibold tracking-tight mt-0">{post.data.title}</h2>
+  <h1 class="text-3xl font-semibold tracking-tight mt-0">{post.data.title}</h1>
 
   {project && (
     <p class="not-prose font-serif project-callout">

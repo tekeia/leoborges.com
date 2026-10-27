@@ -22,7 +22,7 @@ const series = posts[0]?.data.series;
 <Layout title={title} description={summary} activeNav="projects">
   <div class="not-prose font-serif mb-6">
     <p class="mb-3"><a href="/projects" class="nav-link text-sm">&larr; All projects</a></p>
-    <h2 class="text-3xl font-semibold tracking-tight mt-0 mb-3">{title}</h2>
+    <h1 class="text-3xl font-semibold tracking-tight mt-0 mb-3">{title}</h1>
     <p class="text-lg text-soft mb-4">{summary}</p>
     <div class="flex flex-wrap items-center gap-2 mb-3">
       <StatusLight status={status} />
@@ -43,7 +43,7 @@ const series = posts[0]?.data.series;
 
   {posts.length > 0 && (
     <section class="not-prose font-serif mt-10">
-      <h3 class="text-xl font-semibold mb-2">{series ? `${series} write-ups` : 'Write-ups'}</h3>
+      <h2 class="text-xl font-semibold mb-2">{series ? `${series} write-ups` : 'Write-ups'}</h2>
       <ol class="article-list">
         {posts.map((post) => (
           <li>
