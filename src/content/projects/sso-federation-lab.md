@@ -3,7 +3,7 @@ title: "SSO & Federation Lab"
 summary: "Building both sides of single sign-on in my own Keycloak: SAML between an IdP and an SP, OIDC and OAuth 2.0 tokens, and reading the protocol traffic to understand who signs what."
 status: active
 tags: [IAM, SSO, SAML, OIDC, OAuth 2.0, Keycloak]
-stack: [Keycloak, MariaDB, Debian, Proxmox, Postman, SAML-tracer, jwt.io]
+stack: [Keycloak, MariaDB, Debian, Proxmox, Postman, SAML-tracer, jwt.io, ESP32, Flask]
 featured: false
 order: 1
 started: 2026-10-29
@@ -23,10 +23,12 @@ At work I manage SSO and API tokens from the admin consoles of finished products
 
 - SP-initiated SAML SSO between the two realms, with signed assertions
 - The OAuth 2.0 authorization code flow with OIDC, returning ID, access and refresh tokens
+- An **ESP32 display** that signs in with the OAuth Device Authorization Grant (QR code approved from my phone), then calls a Flask **resource server** that validates the token and returns live Proxmox stats — with automatic token refresh
 
 ## Next
 
-- A small Flask app that requests tokens, and a tiny API that validates them
-- An ESP32 display that signs in with the OAuth Device Authorization Grant
+- Persist the refresh token on the ESP32 so it reboots already authenticated
+- Role-based authorization and audience validation on the resource server
+- A "restart VM" action gated by a FIDO2 step-up, and mTLS with a private CA
 
-The write-ups are in the Federation Lab series below.
+The write-ups are in the Federation Lab series below. Device-flow code: [esp32-proxmox-oauth](https://github.com/tekeia/esp32-proxmox-oauth).
