@@ -1,6 +1,6 @@
 // Lab series a blog post can belong to (the `series` field in post frontmatter).
 // To start a new series, add its name here and an entry in seriesInfo below.
-export const SERIES = ['IAM Lab', 'Federation Lab', 'Cloud Lab', 'Security Lab'] as const;
+export const SERIES = ['IAM Lab', 'Federation Lab', 'PAM Lab', 'Cloud Lab', 'Security Lab'] as const;
 
 // Display info for each lab series. Keys must match SERIES above.
 export const seriesInfo: Record<string, { description: string; project?: string }> = {
@@ -13,6 +13,10 @@ export const seriesInfo: Record<string, { description: string; project?: string 
     description:
       'Single sign-on from the inside: SAML, OpenID Connect and OAuth 2.0 in my own Keycloak, read at the protocol level.',
     project: 'sso-federation-lab',
+  },
+  'PAM Lab': {
+    description:
+      'Privileged access and non-human identities: service accounts, vaulted secrets with Delinea Secret Server, and automating them so no person ever handles the password.',
   },
   'Cloud Lab': {
     description:
